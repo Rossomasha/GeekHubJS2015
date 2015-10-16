@@ -1,50 +1,47 @@
-/*
-Теоретически должна проходить игру но почемуто збоит.
-var step="Begin:";
+//Прохождение всего лабиринта одной функцией.
+//***********************************************
+var step="Begin:", returnAnser=true; //переменные для отслеживания направления и возвращаемого значения при использовании east();
 function chit(){
-    if (isFree('east')&&east()==String){
-        console.log("finish!!!!");
-        return false;
-    }
-    else if (isFree('south')&&(step[step.length-1]!='T')){
-        while(isFree('south')&&south()){
-        step=step+'B';
+     if (isFree('west')&&(step[step.length-1]!='R')){//проверка свободно ли направление длвижения и не происходит ли реверсивное движение.
+        while(isFree('west')){
+        west();
+        step=step+'L';//Дописывает в переменную в какую сторону было совершено движение.
         map();
-        console.log(step);
         };
-        return true;
     }
     else if (isFree('east')&&(step[step.length-1]!='L')){
-        while(isFree('east')&&east()){
+        while(isFree('east')&&returnAnser!="end"){//Крутить цикл пока east() не вернет "end"
+        returnAnser=east();
         step=step+'R';
         map();
-        console.log(step);
         };
-        return true;
     }
-    else if (isFree('west')&&(step[step.length-1]!='R')){
-        while(isFree('west')&&west()){
-        step=step+'L';
+    else if (isFree('south')&&(step[step.length-1]!='T')){
+        while(isFree('south')){
+        south();
+        step=step+'B';
         map();
-        console.log(step);
         };
-        return true;
     }
     else if (isFree('north')&&(step[step.length-1]!='B')){
-        while(isFree('north')&&north()){
+        while(isFree('north')){
+        north()
         step=step+'T';
         map();
-        console.log(step);
         };
-        return true;
     }
     else{
-        console.log("finish!!!!");
+        north();
+        step=step+"trable-T";//В случае тупика сделать шаг в верх и отметить направление шага в истории как trable-T
     }
 }
-chit();
-*/
 
+while (returnAnser!="end"){//Крутить цикл пока east() не вернет "end"
+    chit();
+};
+//***********************************************
+
+//Обычное прохождение лаберинта.
 
 // Обёртка функций для движения чтобы иметь возможность задавать им количество шагов.
 
