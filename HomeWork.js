@@ -1,6 +1,53 @@
+/*
+Теоретически должна проходить игру но почемуто збоит.
+var step="Begin:";
+function chit(){
+    if (isFree('east')&&east()==String){
+        console.log("finish!!!!");
+        return false;
+    }
+    else if (isFree('south')&&(step[step.length-1]!='T')){
+        while(isFree('south')&&south()){
+        step=step+'B';
+        map();
+        console.log(step);
+        };
+        return true;
+    }
+    else if (isFree('east')&&(step[step.length-1]!='L')){
+        while(isFree('east')&&east()){
+        step=step+'R';
+        map();
+        console.log(step);
+        };
+        return true;
+    }
+    else if (isFree('west')&&(step[step.length-1]!='R')){
+        while(isFree('west')&&west()){
+        step=step+'L';
+        map();
+        console.log(step);
+        };
+        return true;
+    }
+    else if (isFree('north')&&(step[step.length-1]!='B')){
+        while(isFree('north')&&north()){
+        step=step+'T';
+        map();
+        console.log(step);
+        };
+        return true;
+    }
+    else{
+        console.log("finish!!!!");
+    }
+}
+chit();
+*/
+
+
 // Обёртка функций для движения чтобы иметь возможность задавать им количество шагов.
 
-var a=0;
 function up(a){
     for(var i=1; i<a ;i++){
     north();}
@@ -25,114 +72,90 @@ function left(a){
 //Функции для движения по Г-образной направляющей.
 
 function rightBot(){
-if (right()){
-    while (right() === true);
-    rightBot();
-}
-else if (bot()){
-    while (bot() === true);
-    rightBot();
-} 
-else {
-    console.log("Г-образный спуск закончен");
-}
+    if (isFree('east')){
+        while (isFree('east')&&right());
+        rightBot();
+    }
+    else if (isFree('south')){
+        while (isFree('south')&&bot());
+        rightBot();
+    } 
 }
 function leftBot(){
-if (left()){
-    while (left() === true);
-    leftBot();
-}
-else if (bot()){
-    while (bot() === true);
-    leftBot();
-} 
-else {
-    console.log("Г-образный спуск закончен");
-}
+    if (isFree('west')){
+        while (isFree('west')&&left());
+        leftBot();
+    }
+    else if (isFree('south')){
+        while (isFree('south')&&bot());
+        leftBot();
+    } 
 }
 function leftUp(){
-if (left()){
-    while (left() === true);
-    leftUp();
-}
-else if (up()){
-    while (up() === true);
-    leftUp();
-} 
-else {
-    console.log("Г-образный спуск закончен");
-}
+    if (isFree('west')){
+        while (isFree('west')&&left());
+        leftUp();
+    }
+    else if (isFree('north')){
+        while (isFree('north')&&up());
+        leftUp();
+    } 
 }
 function rightUp(){
-if (right()){
-    while (right() === true);
-    rightUp();
-}
-else if (up()){
-    while (up() === true);
-    rightUp();
-} 
-else {
-    console.log("Г-образный спуск закончен");
-}
+    if (isFree('east')){
+        while (isFree('east')&&right());
+        rightUp();
+    }
+    else if (isFree('north')){
+        while (isFree('north')&&up());
+        rightUp();
+    } 
 }
 
 // 1 level
 
-while (up() === true); // Метод движения до упора в стену.
+while (isFree('north')&&up()); // Метод движения до упора в стену.
 console.log("Уровень 1 пройден");
 
 // 2 level
 
-while (right() === true);
+while (isFree('east')&&right());
 console.log("Уровень 2 пройден");
 
-// 3 level
-
-do{bot();
-  }while (right() === true); // Передвижение на ОДНУ клетку по Г-образной траектории до упора в препятствие.
-console.log("Уровень 3 пройден");
-
-// 4 level
+// 3-4 level
 
 rightBot();
-
+console.log("Уровень 3 и 4 пройден");
 
 // 5 level
 
-while (left() === true);
-while (bot() === true);
-while (left() === true);
-while (up() === true);
-while (left() === true);
-while (bot() === true);
-while (right() === true);
+leftBot();
+leftUp();
+leftBot();
+while (isFree('east')&&right());
 console.log("Уровень 5 пройден");
 
 // 6 level
 
-while (bot() === true);
-while (right() === true);
-while (up() === true);
-while (right() === true);
-while (up() === true);
-while (right() === true);
-while (bot() === true);
+rightBot();
+rightUp();
+rightBot();
 up();
-while (left() === true);
-while (bot() === true);
-while (right() === true);
+leftBot();
+while (isFree('east')&&right());
 console.log("Уровень 6 пройден");
 
 // 7 level
 
 bot(11); //Метод движения с заданием количества шагов.
 right(4);
-while (up() === true);
-while (right() === true);
+while (isFree('north')&&up());
+while (isFree('east')&&right());
 rightBot();
 left();
-while (bot() === true);
-while (right() === true);
-while (bot() === true);
-right();
+while (isFree('south')&&bot());
+while (right()!="end"){
+    while (isFree('east')&&right());
+    while (isFree('south')&&bot());
+};
+console.log("Уровень 7 пройден");
