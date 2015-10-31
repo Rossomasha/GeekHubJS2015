@@ -1,4 +1,4 @@
-var toNumber = function (a, b){
+var toNumber = function (a, b){//конвертируем строку в число
     if(a&&b){
         a=+a;
         b=+b;
@@ -8,7 +8,7 @@ var toNumber = function (a, b){
         return null;
     }
 };
-var add = function (a, b){
+var add = function (a, b){//сумируем аргументы
     if (a&&b){
         return a + b;
     }
@@ -18,11 +18,11 @@ var add = function (a, b){
 };
 
 var fn = function(){
-    var anonFunc = Array.prototype.slice.call(arguments);
+    var anonFunc = Array.prototype.slice.call(arguments);//создаем масив с переданными аргуметами(функциями)
     return function(){
-        var enterVars = Array.prototype.slice.call(arguments);
-        var answer = anonFunc[0].apply(null, enterVars);
-        console.log('Ответ:' ,anonFunc[1].apply(null, answer));
+        var enterVars = Array.prototype.slice.call(arguments);//создаем масив с передаными аргументами (значениями)
+        var answer = anonFunc[0].apply(null, enterVars);//значения масива приводим к числу
+        console.log('Ответ:' ,anonFunc[1].apply(null, answer));//сумируем значения масива
     }
 };
 
