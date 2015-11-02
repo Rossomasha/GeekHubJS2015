@@ -18,11 +18,13 @@ var add = function (a, b){//сумируем аргументы
 };
 
 var fn = function(){
-    var anonFunc = Array.prototype.slice.call(arguments);//создаем масив с переданными аргуметами(функциями)
+    var anonFunc = Array.prototype.slice.call(arguments);//создаем масив с переданными аргуметами (функциями)
     return function(){
         var enterVars = Array.prototype.slice.call(arguments);//создаем масив с передаными аргументами (значениями)
-        var answer = anonFunc[0].apply(null, enterVars);//значения масива приводим к числу
-        console.log('Ответ:' ,anonFunc[1].apply(null, answer));//сумируем значения масива
+        for (var i=0; i<anonFunc.length; i++) {//подставляем переданные значения под все переданые функции
+            enterVars = anonFunc[i].apply(null, enterVars);
+        }
+        console.log("Результат выполнения функции:", enterVars);
     }
 };
 
