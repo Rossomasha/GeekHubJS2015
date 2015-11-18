@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
-var path = require('path');
 var concatCss = require('gulp-concat-css');
 var minifyCss = require('gulp-minify-css');
 var jsmin = require('gulp-jsmin');
@@ -8,13 +7,13 @@ var rename = require('gulp-rename');
 var notify = require("gulp-notify");
 var concat = require('gulp-concat');
 var babel = require('gulp-babel');
-/*var browserify = require('gulp-browserify');*/
+var browserify = require('gulp-browserify');
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['less_to_css', 'concat_css', 'min_css', 'es6_to_es5', 'concat_js', 'min_js']);
+gulp.task('build', ['less_to_css', 'concat_css', 'min_css', 'es6_to_es5', 'to_browserify', 'concat_js', 'min_js']);
 
 gulp.task('less_to_css', function () {
     // Конвертация из less в css
@@ -49,11 +48,18 @@ gulp.task('es6_to_es5', function () {
         .pipe(gulp.dest('js/ES5/'));
 });
 
+gulp.task('to_browserify', function() {
+    //Позволяет подключать JS к JS
+    gulp.src('./js/ES5/*.js')
+        .pipe(browserify())
+        .pipe(gulp.dest('./js/ES5/browserify/'))
+});
+
 gulp.task('concat_js', function () {
     //Объединение в один файл весь js
-    gulp.src('./js/ES5/*.js')
+    gulp.src('./js/ES5/browserify/*.js')
         .pipe(concat('all.js'))
-        .pipe(gulp.dest('./js/minify/'));
+        .pipe(gulp.dest('js/minify/'));
 });
 
 gulp.task('min_js', function () {
@@ -65,19 +71,9 @@ gulp.task('min_js', function () {
         .pipe(notify("JS operations Done!"));
 });
 
-/*gulp.task('browserify', function() {
-    //Позволяет подключать JS к JS
-    gulp.src('js/HS5/*.js')
-        .pipe(browserify({
-            insertGlobals : true,
-            debug : !gulp.env.production
-        }))
-        .pipe(gulp.dest('./js/browserify/'))
-});*/
-
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 gulp.task('watch', function(){
-    gulp.watch('js/*.js',[/*'browserify', */'es6_to_es5', 'concat_js', 'min_js']);
+    gulp.watch('js/*.js',['es6_to_es5', 'to_browserify', 'concat_js', 'min_js']);
     gulp.watch('less/*.less',['less_to_css', 'concat_css', 'min_css']);
 });
