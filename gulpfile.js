@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
+var path = require('path');
 var concatCss = require('gulp-concat-css');
 var minifyCss = require('gulp-minify-css');
 var jsmin = require('gulp-jsmin');
@@ -39,6 +40,8 @@ gulp.task('min_css', function () {
         .pipe(notify("CSS operations Done!"));
 });
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 gulp.task('es6_to_es5', function () {
     //Преобразует ec6 в es5
     gulp.src('js/*.js')
@@ -48,11 +51,12 @@ gulp.task('es6_to_es5', function () {
         .pipe(gulp.dest('js/ES5/'));
 });
 
+
 gulp.task('to_browserify', function() {
     //Позволяет подключать JS к JS
     gulp.src('./js/ES5/*.js')
         .pipe(browserify())
-        .pipe(gulp.dest('./js/ES5/browserify/'))
+        .pipe(gulp.dest('./js/ES5/browserify/'));
 });
 
 gulp.task('concat_js', function () {
