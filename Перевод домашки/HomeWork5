@@ -29,11 +29,11 @@ net start MongoDB
 net stop MongoDB
 "C:\www\MongoDB\Server\3.0\bin\mongo.exe"
 
-db.massage.insert({name:"igor"})
-db.massage.find()
-db.massage.count()
+db.massages.insert({name:"igor"})
+db.massages.find()
+db.massages.count()
 db.getCollectionNames()
-db.cats.drop()
-db.cats.remove({})
+db.massages.drop()
+db.massages.remove({})
 
 

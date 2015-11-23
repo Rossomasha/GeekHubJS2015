@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home Work #N</title>
+    <title>Home Work #5 Forum</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<body>
+<body ng-app>
 
+<div data-ng-controller="forumFn">
+    <ul>
+        <li ng-repeat="massage in massages">{{massage.massLine}}</li>
+    </ul>
+</div>
 
-<script src="/js/minify/all.js"></script>
+<script src="js/forum.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
 </body>
 </html>
