@@ -1,0 +1,39 @@
+1. Два URLs, / и / оба с HTML страницами
+2. Создать страницу с socket based системой чата/ чат
+    - бокс для отправки сообщений
+    - бокс для получения сообщений
+    - не нужно хранить сообщения на стороне сервера
+3. Создать ,блог,функцию, где пользователь сможет создавать новую страницу
+и она будет хранится в базе данных на ваш выбор (рекомендовано mongodb)
+    - пользователь указывает url и текст страници(создать страницу GET/ новую с <form>)
+    - хранить в базе даннных(создать url POST /новое, вам необходимо
+     установить https://github.com/expressjs/body-parser)
+    -вам нужен обработчик который сможет ответить всем  URLs
+    (hint: app.use((req, res) => {})) и следить что база данных на страници
+    ответит на это
+
+Там нет необходимости в какие-либо проверки подлинности для любого из них!
+Если вы хотите сохранить простоту и
+подключить jquery (http://code.jquery.com/jquery-2.1.4.min.js)
+и  bootstrap (https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css)
+для CDN это норально! Если вы хотите истольковать Екма Скрипт 6 и babel, скопируйте мой код,
+это тоже хорошо!
+
+***************MongoDB****************
+
+md "C:\www\MongoDB\Server\data\db"
+md "C:\www\MongoDB\Server\data\log"
+"C:\www\MongoDB\Server\3.0\bin\mongod.exe" --dbpath "C:\www\MongoDB\Server\data\db"
+"C:\www\MongoDB\Server\3.0\bin\mongod.exe" --config "C:\www\MongoDB\Server\3.0\bin\mongod.cfg" --install
+net start MongoDB
+net stop MongoDB
+"C:\www\MongoDB\Server\3.0\bin\mongo.exe"
+
+db.massage.insert({name:"igor"})
+db.massage.find()
+db.massage.count()
+db.getCollectionNames()
+db.cats.drop()
+db.cats.remove({})
+
+

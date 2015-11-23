@@ -328,7 +328,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname.replace('js', '/index.html')); // почему отрабатует /js
+    res.sendFile(__dirname.replace('js', '/chat.html')); // почему отрабатует /js
 });
 
 io.on('connection', function (socket) {

@@ -3,8 +3,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-    res.sendFile(__dirname.replace('js', '/index.html')); // почему отрабатует /js
-    //res.sendfile('index.html');
+    res.sendFile(__dirname.replace('js', '/chat.html')); // !!!почему отрабатует /js
+    //res.sendfile('chat.html');
 });// Отправляет при входе на порт страницу ИНДЕКС
 
 io.on('connection', function(socket){
@@ -18,11 +18,12 @@ io.on('connection', function(socket){
     socket.on('chat message', function(msg){
         io.emit('chat message', msg);
     }); //выводит сообщения в браузер
-    socket.broadcast.emit('hi'); //недогнал что делает
+    socket.broadcast.emit('hi'); //!!!недогнал что делает
+    io.emit('some event', { for: 'everyone' }); //!!!недогнал что делает
 });
+// !!! почему сервер и js должны слушать разные порты хотя друг без друга не работают
 
-io.emit('some event', { for: 'everyone' });
-
-http.listen(3000, function(){
+http.listen(3000, function(){//слушает есть ли ктото на порту.
     console.log('listening on *:3000');
 });
+//Css не отрпбатует с внешнего файла при отдаче HTML через порт который слушает JS.
