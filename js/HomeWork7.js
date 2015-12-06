@@ -21,6 +21,7 @@ console.log("Кординаты Y: "+figureOne.coordinates.coordinatesY);//вы�
 
 class polygon extends figure{
     constructor () {
+        super();
         this.topsCoordinates = Array.prototype.slice.call(arguments);
         this.perimeter = function(){
             var quantityTops = this.coordinates.coordinatesX.length;
