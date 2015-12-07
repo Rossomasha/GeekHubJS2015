@@ -44,7 +44,8 @@ gulp.task('min_css', function () {
 
 gulp.task('es6_to_es5', function () {
     //Преобразует ec6 в es5
-    gulp.src('js/*.js')
+    //gulp.src('js/*.js')
+    gulp.src('js/HomeWork7.js')
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -78,6 +79,6 @@ gulp.task('min_js', function () {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 gulp.task('watch', function(){
-    gulp.watch('js/*.js',['es6_to_es5', 'to_browserify', 'concat_js', 'min_js']);
+    gulp.watch('js/*.js',['es6_to_es5'/*,'to_browserify', 'concat_js', 'min_js'*/]);
     gulp.watch('less/*.less',['less_to_css', 'concat_css', 'min_css']);
 });
